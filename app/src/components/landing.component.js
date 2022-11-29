@@ -1,12 +1,14 @@
 import React, { Component } from "react";
 
 import { withRouter } from '../common/with-router';
-import { Routes, Route, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import axios from "axios";
 
 import "../Project.css";
 import "bootstrap/dist/css/bootstrap.min.css";
+import "./project.component.css"
+import {Icon} from "@iconify/react";
 
 function projApi(str) {
   return `/api/project${str}`
@@ -20,6 +22,7 @@ class Landing extends Component {
     }
     this.addProject = this.addProject.bind(this);
     this.externalProject = this.externalProject.bind(this);
+    this.removeProject = this.removeProject.bind(this);
   }
 
   componentDidMount() {
@@ -40,9 +43,36 @@ class Landing extends Component {
         .post(projApi('/create'), { name })
         .then(response => {
           if (response.data.error == null) {
-            this.props.router.navigate("/");
+            alert(`Project ${name} created successfully`)
+            this.state.projects.unshift(name)
+            this.setState({ projects: this.state.projects })
+          } else {
+            alert(`Project ${name} cannot be created`)
           }
-        });
+        })
+    }
+  }
+
+  removeProject(name) {
+    const confirmation = prompt(`Type in the project name ${name} in full to confirm deletion...`)
+    if (confirmation === name) {
+      axios
+      .post(projApi("/remove"), { name })
+      .then(response => {
+        if (response.data.error == null) {
+          alert(`Project ${name} deleted successfullly`)
+          const i = this.state.projects.indexOf(name)
+          if (i > -1) {
+            this.state.projects.splice(i, 1)
+            this.setState({ projects: this.state.projects })
+          }
+        } else {
+          alert(`Project ${name} cannot be deleted`)
+        }
+      })
+    }
+    else if (confirmation) {
+      alert('Incorrect name typed, deletion canceled')
     }
   }
 
@@ -61,16 +91,17 @@ class Landing extends Component {
   }
 
   render() {
-    return <div>
-      <button onClick={this.externalProject}>Edit or View With Link</button>
+    return <div className="app">
+      <button onClick={this.externalProject} class="frame" >Edit or View With Link</button>
       <div id="landing">
-        <button className="operate" onClick={this.addProject}>+</button>
+        <button className="operate frame" onClick={this.addProject}><Icon icon="material-symbols:create-new-folder-outline" width="3.0em"/></button>
         {(this.state?.projects || []).map(project => (
-          <Link to={`${project}`} onClick={()=>sessionStorage.removeItem('external')}>
             <div className="frame">
+              <Link to={`${project}`} onClick={()=>sessionStorage.removeItem('external')}>
               <h3>{project}</h3>
-            </div>
-          </Link>)
+              </Link>
+              <div class="hoverable" onClick={() => this.removeProject(project)}>🗑️</div>
+            </div>)
         )}
       </div>
     </div>

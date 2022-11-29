@@ -21,7 +21,7 @@ public class Project {
     private String editorId;
     @Field(name = "viewer_id")
     private final String viewerId;
-    private final HashSet<Long> notes;
+    private final HashSet<String> notes;
 
     // set here to prevent
     public static final int MAX_NOTES = 4096;
@@ -37,7 +37,7 @@ public class Project {
             @JsonProperty("name") String name,
             @JsonProperty("editorId") String editorId,
             @JsonProperty("viewerId") String viewerId,
-            @JsonProperty("notes") HashSet<Long> notes) {
+            @JsonProperty("notes") HashSet<String> notes) {
         this.name = name;
         this.editorId = editorId;
         this.viewerId = viewerId;
@@ -75,7 +75,7 @@ public class Project {
         return viewerId;
     }
 
-    public HashSet<Long> getNotes() {
+    public HashSet<String> getNotes() {
         return notes;
     }
 
@@ -99,7 +99,7 @@ public class Project {
     }
 
     public boolean removeNote(Note note) {
-        return notes.removeIf(n -> n == note.getId());
+        return notes.removeIf(n -> n.equals(note.getId()));
     }
 
     public void setPermissionToView() {

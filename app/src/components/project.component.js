@@ -1,19 +1,39 @@
-import React, { useEffect, useState } from "react";
+import React, {useEffect, useState} from "react";
 import "../Project.css"
-import { useParams } from "react-router-dom";
+import {json, useParams} from "react-router-dom";
 import axios from "axios";
 import "bootstrap/dist/css/bootstrap.min.css";
-import Note from "./note.component";
 import Id from "./id.component";
+import NoteAdd from "./note/NoteAdd/NoteAdd.component"
+import NoteContent from "./note/noteContent.component";
+import "./note/note.css"
+import "./project.component.css";
 
 function projApi(str) {
     return `/api/project${str}`
 }
 
+function noteApi(str) {
+    return `/api/note${str}`
+}
+
 function Project(props) {
-    const { projectName } = useParams();
+    const {projectName} = useParams();
     const external = sessionStorage.getItem('external');
     const [project, setProject] = useState(null);
+    const [noteBookData, setNoteBookData] = useState([]);
+
+    const deleteNote = (id) => {
+        axios
+            .delete(noteApi(`/${id}`), {params: {editorId: project?.editorId}})
+            .then(response => {
+                if (response.data.error == null) {
+                    window.location.reload();
+                } else {
+                    alert("Note could not be deleted");
+                }
+            });
+    };
 
     // component did mount / unmount
     useEffect(() => {
@@ -26,6 +46,7 @@ function Project(props) {
                     if (response.data.error == null) {
                         setProject(response.data)
                     } else {
+                        alert("Project could not be loaded")
                         props.router.navigate("/projects")
                     }
                 });
@@ -37,29 +58,46 @@ function Project(props) {
                     if (response.data.error == null) {
                         setProject(response.data)
                     } else {
+                        alert("Project could not be loaded")
                         props.router.navigate("/projects")
                     }
                 });
         }
-
         return function cleanup() {
             sessionStorage.removeItem('external');
         }
     }, []);
 
-    return <div >
-        <h1>{projectName}</h1>
-        <div className="project info">
-            { project?.viewerId && <Id label="View with id" value={project.viewerId}/> }
-            { project?.editorId && <Id label="Edit with id" value={project.editorId}/> }
+    return <div className="app">
+        <div className="projectInfo">
+            <h1>{projectName}</h1>
+            {project?.viewerId && <Id label="Viewing Link" value={project.viewerId}/>}
+            {project?.editorId && <Id label="Editing Link" value={project.editorId}/>}
         </div>
-        <div>{
-            (project?.notes || []).map(note => <Note 
-                link={ project?.editorId || project?.viewerId } 
-                deletable={ project?.editorId } 
-                noteId = {note}/>)
-        }
+        <div className="note-section">
+            {project?.editorId && <NoteAdd editorId={project?.editorId}/>}
+            <section className="notebook-container">
+                    <div className="notebook">
+                    {
+                        project?.notes.map((note) => (
+                            <React.Fragment key={note}>
+                                <div className="notebookInfo" key={note}>
+                                    <div className="notebookInfo-title">
+                                        <Id label="Viewing Link"
+                                            value={`//!<visicode>\n// ${new URL(`${window.location.origin}/api/note/${note}`).toString()}\n//!</visicode>`}/>
+                                        {project?.editorId &&
+                                            <div className="remove" onClick={() => deleteNote(note)}>🗑️</div>}
+                                    </div>
+                                    <NoteContent className="notebookInfo-description" id={note}
+                                                 link={project.editorId || project.viewerId}/>
+                                </div>
+                            </React.Fragment>
+                        ))
+                    }
+                </div>
+            </section>
         </div>
+
     </div>
 }
 

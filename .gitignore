@@ -31,6 +31,8 @@ build/
 
 ### VS Code ###
 .vscode/
+# It actually contains config for debugging vs code extension
+!visicode/.vscode 
 
 ### google account key ###
 visi-code-5528cbe2804d.json
@@ -46,3 +48,8 @@ app/node
 nightwatch_test/tests_output
 
 nightwatch_tests
+### VS code extension related ###
+visicode/out
+visicode/highlight
+!visicode/highlight/highlight.min.js
+!visicode/highlight/styles/atom-one-dark.min.css

@@ -8,7 +8,7 @@ public class ProjectCreationRequest {
 
     public static ProjectCreationRequest forTest(String name) {
         ProjectCreationRequest req = new ProjectCreationRequest();
-        req.setName(name);
+        req.name = name;
         return req;
     }
 
