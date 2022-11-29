@@ -7,6 +7,8 @@ import axios from "axios";
 
 import "../Project.css";
 import "bootstrap/dist/css/bootstrap.min.css";
+import "./project.component.css"
+import {Icon} from "@iconify/react";
 
 function projApi(str) {
   return `/api/project${str}`
@@ -61,7 +63,7 @@ class Landing extends Component {
           alert(`Project ${name} deleted successfullly`)
           const i = this.state.projects.indexOf(name)
           if (i > -1) {
-            this.state.projects.splice(this.state.projects.indexOf(name), 1)
+            this.state.projects.splice(i, 1)
             this.setState({ projects: this.state.projects })
           }
         } else {
@@ -89,10 +91,10 @@ class Landing extends Component {
   }
 
   render() {
-    return <div>
-      <button onClick={this.externalProject}>Edit or View With Link</button>
+    return <div className="app">
+      <button onClick={this.externalProject} class="frame" >Edit or View With Link</button>
       <div id="landing">
-        <button className="operate" onClick={this.addProject}>+</button>
+        <button className="operate frame" onClick={this.addProject}><Icon icon="material-symbols:create-new-folder-outline" width="3.0em"/></button>
         {(this.state?.projects || []).map(project => (
             <div className="frame">
               <Link to={`${project}`} onClick={()=>sessionStorage.removeItem('external')}>

@@ -21,7 +21,7 @@ function NoteContent(props) {
     return <div>
     {
         content?.type==='IMAGE' ? <img src={`data:image/png;base64, ${content.data}`} alt={`note {props.id}`} width="100%" height="100%"/> :
-        (content?.type==='MARKDOWN' ? <p>{content.data}</p> : <p>{content}</p>)
+        (content?.type==='MARKDOWN' ? <p className="lineBreak noteText">{content.data}</p> : <p className="lineBreak noteText">{content}</p>)
     }
     </div>
 }

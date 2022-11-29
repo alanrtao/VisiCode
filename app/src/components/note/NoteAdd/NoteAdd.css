@@ -4,6 +4,13 @@
     width: 100%;
     max-width: 500px;
     margin: 10px auto;
+    background: rgba(209, 97, 175, 0.25);
+    box-shadow: 0 8px 32px 0 rgba(135, 31, 100, 0.37);
+    backdrop-filter: blur(2.5px);
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    color: #f3f3f3;
+    padding: 1em;
 }
 .noteadd h1 {
     display: flex;
@@ -14,12 +21,12 @@
     font-family: "poppins";
     margin-bottom: 10px;
 }
-input {
+.noteadd input {
     border-style: none;
     background: transparent;
     outline: none;
 }
-textarea {
+.noteadd textarea {
     background: transparent;
 }
 .noteadd-header {
@@ -72,9 +79,10 @@ textarea {
     /*justify-content: center;*/
     /*align-items: center;*/
 }
-button {
+
+.noteadd button {
     padding: 5px 10px;
-    font-size: 24px;
+    /* font-size: 24px; */
     /*text-align: center;*/
     cursor: pointer;
     outline: none;
@@ -86,19 +94,19 @@ button {
     display:inline-block;
     margin: 1em;
 }
-#button-group {
+.noteadd #button-group {
     text-align: center;
 }
-button:hover {
+.noteadd button:hover {
     background-color: #906ed3;
 }
-button:active {
+.noteadd button:active {
     background-color: #fd5252e5;
     box-shadow: 0 5px rgb(212, 93, 93);
     transform: translateY(4px);
 }
 
-h3 h5 {
+.noteadd h3 h5 {
     text-align: center;
     padding: 1em;
 }

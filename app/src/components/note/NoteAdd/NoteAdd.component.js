@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useState} from "react";
 import { useNavigate } from "react-router-dom";
 import "./NoteAdd.css";
 import axios from "axios";
@@ -61,8 +61,6 @@ const NoteAdd = (editorId) => {
     return (
         <>
             <div className="noteadd">
-                <h3>Add a New Note</h3>
-                <h5>Upload an img OR enter some text to create your note!</h5>
                 <div className="form-group">
                     <input
                         type="file"
@@ -71,8 +69,9 @@ const NoteAdd = (editorId) => {
                         placeholder="Click to add image"
                         onChange={handleFileChange}
                     />
-                    <button onClick={addImgNote}>Add an Img Note</button>
+                    <button onClick={addImgNote}>{"Add Image Note (<1mb)"}</button>
                 </div>
+                <hr></hr>
                 <div className="form-group">
                   <textarea
                       name="noteadd-description"
@@ -81,7 +80,7 @@ const NoteAdd = (editorId) => {
                       value={description}
                       onChange={(val) => handleDescriptionChange(val)}
                   ></textarea>
-                    <button onClick={() => addTextNote()}>Add a Text Note</button>
+                    <button onClick={() => addTextNote()}>{"Add Text Note (<1mb)"}</button>
                 </div>
             </div>
         </>
