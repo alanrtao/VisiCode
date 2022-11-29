@@ -25,7 +25,7 @@ module.exports = {
     // "2. Login with valid username but wrong password and check for error message": browser => {
     //     const usernameInputSelector = 'input[name="username"]';
     //     const passwordInputSelector = 'input[name="password"]';
-    //     const loginButton =y '.btn-primary[name="Login"]';
+    //     const loginButton = '.btn-primary[name="Login"]';
 
     //     browser.url("http://localhost:8080")
     //     .setValue(usernameInputSelector, "test")
@@ -57,52 +57,60 @@ module.exports = {
         .pause(1000)
         .click(loginButton)
         .click(addButton)
-        .getAlertText((results) => {
-            console.log("get alert")
+        // .getAlertText((results) => {
+        //     console.log("get alert")
+        // })
+        // .setAlertText("bob")
+        .windowHandles((result) => {
+            let handle = result.value[0]
+            console.log(handle)
+            browser.switchToWindow(handle)
+            .source((result) => {
+                console.log(result.value)
+            })
         })
-        .setAlertText("bob")
+        // .source((result) => {
+        //     console.log(result.value)
+        // })
         .pause(15000)
         .keys(browser.Keys.ENTER)
-        .url(response => {
-            browser.assert.equal(response.statusCode, 200)
-        }
-        )
-
-    },
-    "5. Sign up a new user with username: newUser and password: 123456": browser => {
         
-        const usernameInputSelector = 'input[name="username"]';
-        const passwordInputSelector = 'input[name="password"]';
-        const signUpButton = '.btn-primary[name="Sign Up"]';
-        
-        browser.url("http://localhost:8080/register")
-        .setValue(usernameInputSelector, "newUser")
-        .pause(1000)
-        .setValue(passwordInputSelector, "123456")
-        .pause(1000)
-        .click(signUpButton)
-        .waitForElementVisible(".alert")
-        .assert.containsText(".alert", "Authentication Failed!")
-    },
-    "6. Create new unique project and check if its displayed": browser => {
-        const usernameInputSelector = 'input[name="username"]';
-        const passwordInputSelector = 'input[name="password"]';
-        const loginButton = '.btn-primary[name="Login"]';
-        const addButton = '.operate';
-        const timeStamp = Math.floor(Date.now() / 60000)
 
-        browser.url("http://localhost:8080")
-        .setValue(usernameInputSelector, "test")
-        .pause(1000)
-        .setValue(passwordInputSelector, "123456")
-        .pause(1000)
-        .click(loginButton)
-        .click(addButton)
-        .setAlertText(timeStamp.toString())
-        .keys(browser.Keys.ENTER)
-        .url(response => {
-            browser.assert.equal(response.statusCode, 200)
-        }
-        )
     }
+    // "5. Sign up a new user with username: newUser and password: 123456": browser => {
+        
+    //     const usernameInputSelector = 'input[name="username"]';
+    //     const passwordInputSelector = 'input[name="password"]';
+    //     const signUpButton = '.btn-primary[name="Sign Up"]';
+        
+    //     browser.url("http://localhost:8080/register")
+    //     .setValue(usernameInputSelector, "newUser")
+    //     .pause(1000)
+    //     .setValue(passwordInputSelector, "123456")
+    //     .pause(1000)
+    //     .click(signUpButton)
+    //     .waitForElementVisible(".alert")
+    //     .assert.containsText(".alert", "Authentication Failed!")
+    // },
+    // "6. Create new unique project and check if its displayed": browser => {
+    //     const usernameInputSelector = 'input[name="username"]';
+    //     const passwordInputSelector = 'input[name="password"]';
+    //     const loginButton = '.btn-primary[name="Login"]';
+    //     const addButton = '.operate';
+    //     const timeStamp = Math.floor(Date.now() / 60000)
+
+    //     browser.url("http://localhost:8080")
+    //     .setValue(usernameInputSelector, "test")
+    //     .pause(1000)
+    //     .setValue(passwordInputSelector, "123456")
+    //     .pause(1000)
+    //     .click(loginButton)
+    //     .click(addButton)
+    //     .setAlertText(timeStamp.toString())
+    //     .keys(browser.Keys.ENTER)
+    //     .url(response => {
+    //         browser.assert.equal(response.statusCode, 200)
+    //     }
+    //     )
+    // }
 }
