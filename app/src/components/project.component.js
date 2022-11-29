@@ -84,7 +84,7 @@ function Project(props) {
                                 <div className="notebookInfo" key={note}>
                                     <div className="notebookInfo-title">
                                         <Id label="Viewing Link"
-                                            value={new URL(`${window.location.origin}/note/${note}?viewerOrEditorId=${project.viewerId || project.editorId}`).toString()}/>
+                                            value={new URL(`${window.location.origin}/note/${note}`).toString()}/>
                                         {project?.editorId &&
                                             <div className="remove" onClick={() => deleteNote(note)}>🗑️</div>}
                                     </div>

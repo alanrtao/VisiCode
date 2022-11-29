@@ -12,7 +12,7 @@
   - click "Create Service Account" and put in credentials
   - go to "KEYS" and "ADD KEY" -> "Create new key", select "json"
   - check your download directory and there should be a `.json` file that can be shared with other people in the group, but not with the public
-- project currently deployed under `https://location-search-361901.uc.r.appspot.com/`
+- project currently deployed under `https://visi-code.ue.r.appspot.com/`
 
 
 # Testing the Project
