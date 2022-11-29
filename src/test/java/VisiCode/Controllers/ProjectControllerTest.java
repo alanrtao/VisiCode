@@ -167,30 +167,32 @@ class ProjectControllerTest {
     @Test
     @WithMockUser(USERNAME)
     void removeProjectNonExistentInUser() throws Exception {
+        when(projectRepository.findAllById(argThat(a->true))).thenReturn(List.of(p1));
         when(projectRepository.findById(p1.getId())).thenReturn(Optional.of(p1));
-        mockMvc.perform(MockMvcRequestBuilders.post("/api/project/remove").contentType(MediaType.APPLICATION_JSON).content(objectWriter.writeValueAsString(ProjectRemovalRequest.forTest(0L)))).andExpect(status().isBadRequest());
+        mockMvc.perform(MockMvcRequestBuilders.post("/api/project/remove").contentType(MediaType.APPLICATION_JSON).content(objectWriter.writeValueAsString(ProjectRemovalRequest.forTest(p1.getName())))).andExpect(status().isBadRequest());
     }
 
     @Test
     @WithMockUser(USERNAME)
     void removeProjectNonExistentInRepository() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.post("/api/project/remove").contentType(MediaType.APPLICATION_JSON).content(objectWriter.writeValueAsString(ProjectRemovalRequest.forTest(0L)))).andExpect(status().isBadRequest());
+        mockMvc.perform(MockMvcRequestBuilders.post("/api/project/remove").contentType(MediaType.APPLICATION_JSON).content(objectWriter.writeValueAsString(ProjectRemovalRequest.forTest(p1.getName())))).andExpect(status().isBadRequest());
     }
 
     @Test
     void removeProjectUnauthorized() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.post("/api/project/remove").contentType(MediaType.APPLICATION_JSON).content(objectWriter.writeValueAsString(ProjectRemovalRequest.forTest(0L)))).andExpect(status().isBadRequest());
+        mockMvc.perform(MockMvcRequestBuilders.post("/api/project/remove").contentType(MediaType.APPLICATION_JSON).content(objectWriter.writeValueAsString(ProjectRemovalRequest.forTest(p1.getName())))).andExpect(status().isBadRequest());
     }
 
     @Test
     @WithMockUser(USERNAME)
     void removeProjectValid() throws Exception {
         when(userRepository.findByUsername(USERNAME)).thenReturn(Optional.of(new User(USERNAME, "", new HashSet<>(List.of(pn1.getId())))));
+        when(projectRepository.findAllById(argThat(a->true))).thenReturn(List.of(pn1));
         when(projectRepository.findById(pn1.getId())).thenReturn(Optional.of(pn1));
 
         RequestBuilder req = MockMvcRequestBuilders.post("/api/project/remove")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(objectWriter.writeValueAsString(ProjectRemovalRequest.forTest(pn1.getId())));
+                .content(objectWriter.writeValueAsString(ProjectRemovalRequest.forTest(pn1.getName())));
 
         mockMvc.perform(req).andExpect(status().isOk());
     }

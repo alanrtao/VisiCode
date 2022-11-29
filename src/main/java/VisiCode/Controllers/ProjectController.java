@@ -73,11 +73,17 @@ public class ProjectController extends UserAuthenticable {
     public void removeProject(Authentication auth, @RequestBody @Valid ProjectRemovalRequest request) {
         User user = getAuthenticated(auth);
 
-        Long id = request.getId();
-        if (user.removeProject(id)) {
+        Iterable<Project> existingProjects = projectRepository.findAllById(user.getProjects());
+        Project toDelete = StreamSupport
+                .stream(existingProjects.spliterator(), false)
+                .filter((project -> project.getName().equals(request.getName())))
+                .findFirst()
+                .orElseThrow(()->EntityException.noSuchProject(request.getName()));
+
+        if (user.removeProject(toDelete.getId())) {
             userRepository.save(user);
-            Project project = projectRepository.findById(id).orElseThrow(() -> EntityException.noSuchProject(id));
-            projectRepository.deleteById(id);
+            Project project = projectRepository.findById(toDelete.getId()).orElseThrow(() -> EntityException.noSuchProject(toDelete.getId()));
+            projectRepository.deleteById(toDelete.getId());
             for (String i : project.getNotes()) {
                 noteRepository.deleteById(i);
             }

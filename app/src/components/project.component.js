@@ -24,8 +24,6 @@ function Project(props) {
     const [noteBookData, setNoteBookData] = useState([]);
 
     const deleteNote = (id) => {
-        console.log(id);
-        console.log(project?.editorId);
         axios
             .delete(noteApi(`/${id}`), {params: {editorId: project?.editorId}})
             .then(response => {
@@ -74,11 +72,7 @@ function Project(props) {
             { project?.viewerId && <Id label="Viewing Link" value={project.viewerId}/> }
             { project?.editorId && <Id label="Editing Link" value={project.editorId}/> }
         </div>
-        <div className="note-section">
-            <NoteAdd editorId={project?.editorId}/>
-            <section className="notebook-container">
-                <div className="notebook">
-
+        <section className="notebook-container">
         <div className="notebook">
             <div className="note-section">
                 <NoteAdd editorId={project?.editorId}/>
@@ -97,6 +91,7 @@ function Project(props) {
             ))
             }
         </div>
+        </section>
     </div>
 }
 
