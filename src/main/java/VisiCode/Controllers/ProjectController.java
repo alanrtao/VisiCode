@@ -8,6 +8,7 @@ import VisiCode.Payload.ProjectRemovalRequest;
 import com.google.cloud.datastore.DatastoreException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -72,12 +73,18 @@ public class ProjectController extends UserAuthenticable {
     public void removeProject(Authentication auth, @RequestBody @Valid ProjectRemovalRequest request) {
         User user = getAuthenticated(auth);
 
-        Long id = request.getId();
-        if (user.removeProject(id)) {
+        Iterable<Project> existingProjects = projectRepository.findAllById(user.getProjects());
+        Project toDelete = StreamSupport
+                .stream(existingProjects.spliterator(), false)
+                .filter((project -> project.getName().equals(request.getName())))
+                .findFirst()
+                .orElseThrow(()->EntityException.noSuchProject(request.getName()));
+
+        if (user.removeProject(toDelete.getId())) {
             userRepository.save(user);
-            Project project = projectRepository.findById(id).orElseThrow(() -> EntityException.noSuchProject(id));
-            projectRepository.deleteById(id);
-            for (Long i : project.getNotes()) {
+            Project project = projectRepository.findById(toDelete.getId()).orElseThrow(() -> EntityException.noSuchProject(toDelete.getId()));
+            projectRepository.deleteById(toDelete.getId());
+            for (String i : project.getNotes()) {
                 noteRepository.deleteById(i);
             }
         } else
@@ -111,27 +118,29 @@ public class ProjectController extends UserAuthenticable {
     }
 
     @ResponseBody
-    @PostMapping("/note/file")
-    public void addFileNote(@RequestParam String editorId, @RequestParam("file") MultipartFile file) throws IOException {
+    @PostMapping(value = "/note/file", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public void addFileNote(@RequestParam String editorId, @RequestBody MultipartFile file) throws IOException {
         Project editableProject = getEditable(editorId);
-
+        System.out.println(file);
+        System.out.println(editableProject.getNotes().size());
         Note note = Note.makeFileNote(file);
         addNote(editableProject, note);
+        System.out.println(editableProject.getNotes().size());
     }
 
     @ResponseBody
     @PostMapping("/note/text")
-    public void addTextNote(@RequestParam String editorId, @RequestBody String text) {
+    public String addTextNote(@RequestParam String editorId, @RequestBody String text) {
         Project editableProject = getEditable(editorId);
-
         // https://www.codejava.net/frameworks/spring-boot/spring-boot-file-upload-tutorial
         Note note = Note.makeTextNote(text);
         addNote(editableProject, note);
+        return text;
     }
 
     @ResponseBody
     @DeleteMapping("/note/{noteId}")
-    public void removeNote(@PathVariable Long noteId, @RequestParam String editorId) {
+    public void removeNote(@PathVariable String noteId, @RequestParam String editorId) {
         Project editableProject = getEditable(editorId);
         Note note = noteRepository.findById(noteId).orElseThrow(() -> EntityException.noSuchNote(noteId));
         if (editableProject.removeNote(note)) {
@@ -144,7 +153,7 @@ public class ProjectController extends UserAuthenticable {
 
     @ResponseBody
     @GetMapping("/note/{noteId}")
-    public Note viewNote(@PathVariable Long noteId, @RequestParam String viewerOrEditorId) {
+    public Note viewNote(@PathVariable String noteId, @RequestParam String viewerOrEditorId) {
         Project viewableProject = getViewable(viewerOrEditorId);
         if (viewableProject.getNotes().contains(noteId)) {
             return noteRepository.findById(noteId).orElseThrow(() -> EntityException.noSuchNote(noteId));

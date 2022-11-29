@@ -20,6 +20,7 @@ class Landing extends Component {
     }
     this.addProject = this.addProject.bind(this);
     this.externalProject = this.externalProject.bind(this);
+    this.removeProject = this.removeProject.bind(this);
   }
 
   componentDidMount() {
@@ -40,9 +41,36 @@ class Landing extends Component {
         .post(projApi('/create'), { name })
         .then(response => {
           if (response.data.error == null) {
-            this.props.router.navigate("/");
+            alert(`Project ${name} created successfully`)
+            this.state.projects.unshift(name)
+            this.setState({ projects: this.state.projects })
+          } else {
+            alert(`Project ${name} cannot be created`)
           }
-        });
+        })
+    }
+  }
+
+  removeProject(name) {
+    const confirmation = prompt(`Type in the project name ${name} in full to confirm deletion...`)
+    if (confirmation === name) {
+      axios
+      .post(projApi("/remove"), { name })
+      .then(response => {
+        if (response.data.error == null) {
+          alert(`Project ${name} deleted successfullly`)
+          const i = this.state.projects.indexOf(name)
+          if (i > -1) {
+            this.state.projects.splice(this.state.projects.indexOf(name), 1)
+            this.setState({ projects: this.state.projects })
+          }
+        } else {
+          alert(`Project ${name} cannot be deleted`)
+        }
+      })
+    }
+    else if (confirmation) {
+      alert('Incorrect name typed, deletion canceled')
     }
   }
 
@@ -66,11 +94,12 @@ class Landing extends Component {
       <div id="landing">
         <button className="operate" onClick={this.addProject}>+</button>
         {(this.state?.projects || []).map(project => (
-          <Link to={`${project}`} onClick={()=>sessionStorage.removeItem('external')}>
             <div className="frame">
+              <Link to={`${project}`} onClick={()=>sessionStorage.removeItem('external')}>
               <h3>{project}</h3>
-            </div>
-          </Link>)
+              </Link>
+              <div class="hoverable" onClick={() => this.removeProject(project)}>🗑️</div>
+            </div>)
         )}
       </div>
     </div>

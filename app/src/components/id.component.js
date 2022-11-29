@@ -9,7 +9,7 @@ function clipboardCopy(str) {
 }
 
 function Id(props) {
-    return <p>{props.label}: {props.value} <Icon icon="material-symbols:ios-share-rounded" width="1.5em" onClick={()=>clipboardCopy(props.value)} className="hoverable" /></p>
+    return <p>{props.label}<Icon icon="material-symbols:ios-share-rounded" width="1.5em" onClick={()=>clipboardCopy(props.value)} className="hoverable" /></p>
 }
 
 export default Id;

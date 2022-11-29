@@ -4,19 +4,20 @@ import javax.validation.constraints.NotBlank;
 
 public class ProjectRemovalRequest {
 
-    private Long id;
+    @NotBlank
+    private String name;
 
-    public static ProjectRemovalRequest forTest(Long id) {
+    public static ProjectRemovalRequest forTest(String name) {
         ProjectRemovalRequest r = new ProjectRemovalRequest();
-        r.id = id;
+        r.name = name;
         return r;
     }
 
-    public Long getId() {
-        return id;
+    public String getName() {
+        return name;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setName(String name) {
+        this.name = name;
     }
 }
