@@ -14,7 +14,7 @@
 module.exports = {
   // An array of folders (excluding subfolders) where your tests are located;
   // if this is not specified, the test source must be passed as the second argument to the test runner.
-  src_folders: ['tests'],
+  src_folders: ['tests'],  //'nightwatch/examples
 
   // See https://nightwatchjs.org/guide/concepts/page-object-model.html
   page_objects_path: ['nightwatch/page-objects'],
@@ -40,7 +40,7 @@ module.exports = {
   test_settings: {
     default: {
       disable_error_log: false,
-      launch_url: 'http://localhost',
+      launch_url: 'http://localhost:8080',
 
       screenshots: {
         enabled: false,
@@ -57,18 +57,6 @@ module.exports = {
         server_path: ''
       },
       
-      test_runner: {
-        // set mocha as the runner
-        // For more info on using Mocha with Nightwatch, visit:
-        // https://nightwatchjs.org/guide/writing-tests/using-mocha.html
-        type: 'mocha',
-
-        // define mocha specific options
-        options : {
-          ui: 'bdd',
-          reporter: 'list'
-        }
-      }
     },
     
     chrome: {
@@ -98,32 +86,47 @@ module.exports = {
     },
     
     //////////////////////////////////////////////////////////////////////////////////
-    // Configuration for when using the Selenium service, either locally or remote,  |
-    //  like Selenium Grid                                                           |
+    // Configuration for using the browserstack.com cloud service                    |
+    //                                                                               |
+    // Please set the username and access key by setting the environment variables:  |
+    // - BROWSERSTACK_USERNAME                                                       |
+    // - BROWSERSTACK_ACCESS_KEY                                                     |
+    // .env files are supported                                                      |
     //////////////////////////////////////////////////////////////////////////////////
-    selenium_server: {
-      // Selenium Server is running locally and is managed by Nightwatch
-      // More info on setting up Selenium Server locally:
-      // https://nightwatchjs.org/guide/quickstarts/create-and-run-a-test-with-selenium-server.html
+    browserstack: {
       selenium: {
-        start_process: true,
-        port: 4444,
-        server_path: '', // Leave empty if @nightwatch/selenium-server is installed
-        command: 'standalone', // Selenium 4 only
-        cli_args: {
-          // 'webdriver.gecko.driver': '',
-          // 'webdriver.chrome.driver': '',
-          // 'webdriver.edge.driver': './path/to/msedgedriver'
+        host: 'hub.browserstack.com',
+        port: 443
+      },
+      // More info on configuring capabilities can be found on:
+      // https://www.browserstack.com/automate/capabilities?tag=selenium-4
+      desiredCapabilities: {
+        'bstack:options': {
+          userName: '${BROWSERSTACK_USERNAME}',
+          accessKey: '${BROWSERSTACK_ACCESS_KEY}'
         }
       },
+
+      disable_error_log: true,
       webdriver: {
-        start_process: false,
-        default_path_prefix: '/wd/hub'
+        timeout_options: {
+          timeout: 15000,
+          retry_attempts: 3
+        },
+        keep_alive: true,
+        start_process: false
+      }
+    },
+
+    'browserstack.local': {
+      extends: 'browserstack',
+      desiredCapabilities: {
+        'browserstack.local': true
       }
     },
     
-    'selenium.chrome': {
-      extends: 'selenium_server',
+    'browserstack.chrome': {
+      extends: 'browserstack',
       desiredCapabilities: {
         browserName: 'chrome',
         'goog:chromeOptions': {
@@ -132,11 +135,18 @@ module.exports = {
       }
     },
     
+    'browserstack.local_chrome': {
+      extends: 'browserstack.local',
+      desiredCapabilities: {
+        browserName: 'chrome'
+      }
+    },
+    
   },
 
   usage_analytics: {
-    enabled: false,
+    enabled: true,
     log_path: './logs/analytics',
-    client_id: 'db0ea95b-d36b-4307-85c6-0034d025d101'
+    client_id: '2fd5b659-a39b-4b24-a231-de75ebd247f3'
   }
 };
