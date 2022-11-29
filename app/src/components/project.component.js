@@ -28,9 +28,9 @@ function Project(props) {
             .delete(noteApi(`/${id}`), {params: {editorId: project?.editorId}})
             .then(response => {
                 if (response.data.error == null) {
-                    // setProject(response.data)
+                    window.location.reload();
                 } else {
-                    props.router.navigate("/projects")
+                    alert("Note could not be deleted");
                 }
             });
     };
@@ -46,6 +46,7 @@ function Project(props) {
                     if (response.data.error == null) {
                         setProject(response.data)
                     } else {
+                        alert("Project could not be loaded")
                         props.router.navigate("/projects")
                     }
                 });
@@ -57,6 +58,7 @@ function Project(props) {
                     if (response.data.error == null) {
                         setProject(response.data)
                     } else {
+                        alert("Project could not be loaded")
                         props.router.navigate("/projects")
                     }
                 });
@@ -67,8 +69,8 @@ function Project(props) {
     }, []);
 
     return <div className="app">
-        <h1>{projectName}</h1>
-        <div className="project info">
+        <div className="projectInfo">
+            <h1>{projectName}</h1>
             {project?.viewerId && <Id label="Viewing Link" value={project.viewerId}/>}
             {project?.editorId && <Id label="Editing Link" value={project.editorId}/>}
         </div>
@@ -82,7 +84,7 @@ function Project(props) {
                                 <div className="notebookInfo" key={note}>
                                     <div className="notebookInfo-title">
                                         <Id label="Viewing Link"
-                                            value={project.viewerId}/>
+                                            value={new URL(`${window.location.origin}/note/${note}?viewerOrEditorId=${project.viewerId || project.editorId}`).toString()}/>
                                         {project?.editorId &&
                                             <div className="remove" onClick={() => deleteNote(note)}>🗑️</div>}
                                     </div>
