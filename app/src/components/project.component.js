@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import "../Project.css"
-import { json, useParams } from "react-router-dom";
+import {json, useParams} from "react-router-dom";
 import axios from "axios";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Id from "./id.component";
@@ -69,29 +69,33 @@ function Project(props) {
     return <div className="app">
         <h1>{projectName}</h1>
         <div className="project info">
-            { project?.viewerId && <Id label="Viewing Link" value={project.viewerId}/> }
-            { project?.editorId && <Id label="Editing Link" value={project.editorId}/> }
+            {project?.viewerId && <Id label="Viewing Link" value={project.viewerId}/>}
+            {project?.editorId && <Id label="Editing Link" value={project.editorId}/>}
         </div>
-        <section className="notebook-container">
-        <div className="notebook">
-            <div className="note-section">
-                <NoteAdd editorId={project?.editorId}/>
-            </div>{
-            project?.notes.map((note) => (
-                <React.Fragment key={note}>
-                    <div className="notebookInfo" key={note}>
-                        <div className="notebookInfo-title">
-                            <Id label="Viewing Link" value={ new URL(`${window.location.origin}/api/note/${note}?viewerOrEditorId=${project.viewerId}`) } />
-                            { project?.editorId && 
-                            <div className="remove" onClick={() => deleteNote(note)}>🗑️</div>}
-                        </div>
-                        <NoteContent className="notebookInfo-description" id={note} link={project.editorId || project.viewerId}/>
-                    </div>
-                </React.Fragment>
-            ))
-            }
+        <div className="note-section">
+            {project?.editorId && <NoteAdd editorId={project?.editorId}/>}
+            <section className="notebook-container">
+                    <div className="notebook">
+                    {
+                        project?.notes.map((note) => (
+                            <React.Fragment key={note}>
+                                <div className="notebookInfo" key={note}>
+                                    <div className="notebookInfo-title">
+                                        <Id label="Viewing Link"
+                                            value={project.viewerId}/>
+                                        {project?.editorId &&
+                                            <div className="remove" onClick={() => deleteNote(note)}>🗑️</div>}
+                                    </div>
+                                    <NoteContent className="notebookInfo-description" id={note}
+                                                 link={project.editorId || project.viewerId}/>
+                                </div>
+                            </React.Fragment>
+                        ))
+                    }
+                </div>
+            </section>
         </div>
-        </section>
+
     </div>
 }
 

@@ -58,7 +58,7 @@ class App extends Component {
           </div>
         </nav>
 
-        <div className="container mt-3">
+        <div>
           <Routes>
             <Route path="" element={<Login />} />
             <Route path="login" element={<Login />} />

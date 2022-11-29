@@ -73,7 +73,7 @@ textarea {
     /*align-items: center;*/
 }
 button {
-    padding: 3px 8px;
+    padding: 5px 10px;
     font-size: 24px;
     /*text-align: center;*/
     cursor: pointer;
@@ -84,6 +84,7 @@ button {
     border-radius: 15px;
     box-shadow: 0 5px rgb(109, 57, 129);
     display:inline-block;
+    margin: 1em;
 }
 #button-group {
     text-align: center;
@@ -96,3 +97,9 @@ button:active {
     box-shadow: 0 5px rgb(212, 93, 93);
     transform: translateY(4px);
 }
+
+h3 h5 {
+    text-align: center;
+    padding: 1em;
+}
+
