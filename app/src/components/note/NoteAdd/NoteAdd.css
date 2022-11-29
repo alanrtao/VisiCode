@@ -20,9 +20,7 @@ input {
     outline: none;
 }
 textarea {
-    border-style: none;
     background: transparent;
-    outline: none;
 }
 .noteadd-header {
     display: flex;
@@ -50,7 +48,7 @@ textarea {
     flex-direction: row;
     width: 100%;
     max-width: 400px;
-    height: 40px;
+    height: 50px;
     margin: 0 auto;
     border-radius: 5px;
     padding: 1rem;
@@ -66,18 +64,18 @@ textarea {
 .noteadd .form-group {
     display: flex;
     flex-direction: column;
-    margin-bottom: 15px;
+    /*margin-bottom: 15px;*/
     justify-content: center;
 }
 .noteadd-button {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    /*display: flex;*/
+    /*justify-content: center;*/
+    /*align-items: center;*/
 }
 button {
-    padding: 10px 15px;
+    padding: 3px 8px;
     font-size: 24px;
-    text-align: center;
+    /*text-align: center;*/
     cursor: pointer;
     outline: none;
     color: #fff;
@@ -85,6 +83,10 @@ button {
     border: none;
     border-radius: 15px;
     box-shadow: 0 5px rgb(109, 57, 129);
+    display:inline-block;
+}
+#button-group {
+    text-align: center;
 }
 button:hover {
     background-color: #906ed3;

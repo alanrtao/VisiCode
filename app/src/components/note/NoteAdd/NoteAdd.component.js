@@ -32,7 +32,6 @@ const NoteAdd = (editorId) => {
                 .post(noteApi('/text'), {text: description}, { headers: { "Content-Type": "application/json; charset=UTF-8" }, params: {editorId: editorId.editorId}})
                 .then(response => {
                     if (response.data.error != null) {
-                        console.log(response.data.error);
                         alert("Fail to add note!")
                     } else {
                         console.log(response);
@@ -67,19 +66,15 @@ const NoteAdd = (editorId) => {
     return (
         <>
             <div className="noteadd">
-                <h1>Add a New Note</h1>
+                <h3>Add a New Note</h3>
                 <div className="form-group">
                     <input
                         type="file"
-                        className="noteadd-header"
-                        name="noteadd-header"
+                        className="noteadd-description"
+                        name="noteadd-description"
                         placeholder="Click to add image"
                         onChange={handleFileChange}
                     />
-                    <img src={file} />
-                    <div className="noteadd-button">
-                        <button onClick={addImgNote}>Add an Img Note</button>
-                    </div>
                 </div>
                 <div className="form-group">
                   <textarea
@@ -90,9 +85,11 @@ const NoteAdd = (editorId) => {
                       onChange={(val) => handleDescriptionChange(val)}
                   ></textarea>
                 </div>
-                <div className="noteadd-button">
+                <div id="button-group">
                     <button onClick={() => addTextNote()}>Add a Text Note</button>
+                    <button onClick={addImgNote}>Add an Img Note</button>
                 </div>
+
             </div>
         </>
     );
