@@ -99,7 +99,7 @@ public class Project {
     }
 
     public boolean removeNote(Note note) {
-        return notes.removeIf(n -> n == note.getId());
+        return notes.removeIf(n -> n.equals(note.getId()));
     }
 
     public void setPermissionToView() {

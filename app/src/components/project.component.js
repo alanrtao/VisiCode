@@ -83,7 +83,7 @@ function Project(props) {
                 <React.Fragment key={note}>
                     <div className="notebookInfo" key={note}>
                         <div className="notebookInfo-title">
-                            <Id label="Link" value={ new URL(`${window.location.origin}/api/note/${note}?viewerOrEditorId=${project.viewerId}`) } />
+                            <Id label="Viewing Link" value={ new URL(`${window.location.origin}/api/note/${note}?viewerOrEditorId=${project.viewerId}`) } />
                             { project?.editorId && 
                             <div className="remove" onClick={() => deleteNote(note)}>🗑️</div>}
                         </div>
