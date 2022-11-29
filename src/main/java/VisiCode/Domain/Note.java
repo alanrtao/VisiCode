@@ -10,6 +10,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.UUID;
 
 @Entity
 public class Note {
@@ -22,7 +23,7 @@ public class Note {
     @Unindexed
     String data;
     @Id
-    private Long id;
+    private String id;
 
     @JsonCreator
     private Note(
@@ -30,6 +31,7 @@ public class Note {
             @JsonProperty("data") String data) {
         this.type = type;
         this.data = data;
+        this.id = UUID.randomUUID().toString();
     }
 
     public static Note makeTextNote(String text) throws BlobSizeException {
@@ -44,17 +46,17 @@ public class Note {
         return new Note(ENoteType.IMAGE, Base64.encodeBase64String(file.getBytes()));
     }
 
-    public static Note forTest(Long id) {
+    public static Note forTest(String id) {
         Note n = makeTextNote("For testing");
         n.id = id;
         return n;
     }
 
-    public void fillIdForTest(Long id) {
+    public void fillIdForTest(String id) {
         this.id = id;
     }
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 

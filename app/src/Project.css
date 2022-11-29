@@ -17,7 +17,6 @@
 .operate {
     margin: 5px;
     border-radius: 12px;
-    aspect-ratio: 1;
 }
 
 .note.header {
@@ -33,13 +32,13 @@
     margin-bottom: 5px;
 }
 
-.project.info {
-    margin-top: 5px;
+.projectInfo {
     border-bottom: 1px gray;
+    color: #f3f3f3;
     width: 100%;
 }
 
-.project.info p {
+.projectInfo p {
     display: inline-block;
     margin-inline-end: 2em;
 }
@@ -48,3 +47,10 @@
     cursor:pointer;
 }
 
+.lineBreak {
+    white-space: pre-wrap;
+}
+
+a {
+    color: white;
+}

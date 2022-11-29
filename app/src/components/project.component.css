@@ -1,0 +1,103 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+.app {
+    background-image: linear-gradient(
+            to right,
+            rgb(242, 112, 156),
+            rgb(255, 148, 114)
+    );
+    min-height: 100vh;
+    align-items: center;
+    padding: 1.5em 5%;
+    /*display: flex;*/
+    /*justify-content: center;*/
+    /*align-items: center;*/
+    /*text-align: center;*/
+}
+
+.note-section {
+    padding: 15px;
+}
+.notebook {
+    display: grid;
+    grid-gap: 20px;
+    padding: 20px;
+}
+.notebook .notebookInfo {
+    background: rgba(209, 97, 175, 0.25);
+    box-shadow: 0 8px 32px 0 rgba(135, 31, 100, 0.37);
+    backdrop-filter: blur(2.5px);
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    min-height: 1rem;
+    width: 20rem !important;
+    margin: 0rem auto;
+    align-items: flex-start;
+}
+
+.notebook .notebookInfo .notebookInfo-title {
+    margin: .5em;
+    padding: .5em;
+    background: rgba(212, 134, 98, 0.25);
+    /* box-shadow: 0 8px 12px 0 rgba(135, 31, 130, 0.37); */
+    border-radius: 15px;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    backdrop-filter: blur(2.5px);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.notebookInfo-title div {
+    margin: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.notebookInfo-title h3 {
+    padding-left: 1rem;
+}
+
+.notebookInfo-title .remove {
+}
+
+.notebook .notebookInfo .notebookInfo-title {
+    color: #f3f3f3;
+}
+
+.notebook .notebookInfo .notebookInfo-title .remove {
+    color: #ff0000;
+    font-size: 24px;
+    font-weight: 700;
+}
+
+.notebook .notebookInfo .notebookInfo-description {
+    padding: 10px;
+}
+
+.noteText {
+    padding: 1em;
+}
+
+.remove {
+    cursor: pointer;
+}
+
+@media screen and (min-width: 768px) {
+    .notebook {
+        grid-template-columns: repeat(auto-fit, 20rem);
+    }
+}
+
+@media not screen and (min-width: 768px) {
+    .notebook {
+        grid-template-columns: 1fr;
+    }
+}

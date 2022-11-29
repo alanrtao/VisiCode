@@ -25,11 +25,11 @@ public class EntityException extends VisiCodeException {
         return new EntityException(String.format("Project %s exists", name));
     }
 
-    public static EntityException noSuchNote(Long id) {
+    public static EntityException noSuchNote(String id) {
         return new EntityException(String.format("No such note %s", id));
     }
 
-    public static EntityException duplicateNote(Long id) {
+    public static EntityException duplicateNote(String id) {
         return new EntityException(String.format("Note %s exists", id));
     }
 }
