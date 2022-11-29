@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, {useEffect, useState} from "react";
 import "../Project.css"
 import { json, useParams } from "react-router-dom";
 import axios from "axios";
@@ -18,16 +18,16 @@ function noteApi(str) {
 }
 
 function Project(props) {
-    const { projectName } = useParams();
+    const {projectName} = useParams();
     const external = sessionStorage.getItem('external');
     const [project, setProject] = useState(null);
-
+    const [noteBookData, setNoteBookData] = useState([]);
 
     const deleteNote = (id) => {
         console.log(id);
         console.log(project?.editorId);
         axios
-            .delete(noteApi(`/${id}`),  {params: {editorId: project?.editorId}})
+            .delete(noteApi(`/${id}`), {params: {editorId: project?.editorId}})
             .then(response => {
                 if (response.data.error == null) {
                     // setProject(response.data)
@@ -68,12 +68,16 @@ function Project(props) {
         }
     }, []);
 
-    return <div >
+    return <div className="app">
         <h1>{projectName}</h1>
         <div className="project info">
             { project?.viewerId && <Id label="Viewing Link" value={project.viewerId}/> }
             { project?.editorId && <Id label="Editing Link" value={project.editorId}/> }
         </div>
+        <div className="note-section">
+            <NoteAdd editorId={project?.editorId}/>
+            <section className="notebook-container">
+                <div className="notebook">
 
         <div className="notebook">
             <div className="note-section">
@@ -93,7 +97,6 @@ function Project(props) {
             ))
             }
         </div>
-
     </div>
 }
 
