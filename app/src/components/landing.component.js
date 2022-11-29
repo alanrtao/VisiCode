@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 
 import { withRouter } from '../common/with-router';
-import { Routes, Route, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import axios from "axios";
 
