@@ -24,7 +24,7 @@ const NoteAdd = (editorId) => {
     const addTextNote = () => {
         if (description !== "") {
             axios
-                .post(noteApi('/text'), {text: description}, { headers: { "Content-Type": "application/json; charset=UTF-8" }, params: {editorId: editorId.editorId}})
+                .post(noteApi('/text'), description, { headers: { "Content-Type": "application/json; charset=UTF-8" }, params: {editorId: editorId.editorId}})
                 .then(response => {
                     if (response.data.error != null) {
                         alert("Fail to add note!")

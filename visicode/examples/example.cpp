@@ -31,7 +31,12 @@ void XNNSerializer::serializeAddNode(
 
 // Markdown
 //!<visicode>
-// https://visi-code.ue.r.appspot.com/api/note/8c0aaf07-f29c-4c4d-a87d-cd05d10e6f46
+// https://visi-code.ue.r.appspot.com/api/note/19dc0a98-f511-4fb3-92ba-6ba4953d9f05
+//!</visicode>
+
+// Matrix
+//!<visicode>
+// https://visi-code.ue.r.appspot.com/api/note/202e119c-c165-46ee-9e9f-3f7b6a95fa57
 //!</visicode>
 
 void XNNSerializer::serializeTensorValue(
@@ -62,7 +67,7 @@ void XNNSerializer::serializeTensorValue(
 
 // Image
 //!<visicode>
-// https://visi-code.ue.r.appspot.com/api/note/2236c97c-c1f3-476f-9449-e2ae6494f76c
+// https://visi-code.ue.r.appspot.com/api/note/dc45e3fc-5ad3-40f6-b35f-c4b1a30f0c7e
 //!</visicode>
 
   const auto tensorValue = CreateXNNTensorValueDirect(
@@ -108,8 +113,3 @@ std::string XNNSerializer::finishAndSerialize(
 } // namespace xnnpack
 } // namespace jit
 } // namespace torch
-
-// Image
-//!<visicode>
-// https://visi-code.ue.r.appspot.com/api/note/e2cf9942-05a9-4a15-953f-2d61529fa0c7
-//!</visicode>
