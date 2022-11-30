@@ -99,7 +99,7 @@ The assumed skill-level of VisiCode users is inherently low. Users are expected 
 
 ### Class Diagram
 
-![Figure 1. Class Diagram](VisiCode/report_images/classdiagram.jpg)
+![Class Diagram](report_images/classdiagram.jpg)
 
 ### Sequence Diagram
 
