@@ -328,6 +328,10 @@ We use Mockito and JUnit testing frameworks for the white-box component of our t
   - Expected Result - Login fails
   - Actual - Pass as expected
 
+#### Test Coverage
+
+![Test Coverage](./report_images/coverage.png)
+
 ## User Interface
 
 ## References
