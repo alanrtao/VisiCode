@@ -1,4 +1,14 @@
 // VisiCode e2e (blackbox) testing suite
+function projectSelector(name) {
+    console.log({
+        selector : `//h3[text()='${name}']`,
+        locateStrategy: 'xpath'
+      })
+    return {
+        selector : `//h3[text()='${name}']`,
+        locateStrategy: 'xpath'
+      }
+}
 module.exports = {
     '@tags': ['base-tests'],
     // "0. Visit VisiCode Login Page and check brand text": browser => {
@@ -43,61 +53,12 @@ module.exports = {
     //     .assert.containsText(".error-code", "HTTP ERROR 401")
     //     .pause(2000)
     // },
-    "4. Login with valid credentials, then create a duplicate project": browser => {
-        const usernameInputSelector = 'input[name="username"]';
-        const passwordInputSelector = 'input[name="password"]';
-        const loginButton = '.btn-primary[name="Login"]';
-        const addButton = '.operate';
-        
-
-        browser.url("http://localhost:8080")
-        .setValue(usernameInputSelector, "test")
-        .pause(1000)
-        .setValue(passwordInputSelector, "123456")
-        .pause(1000)
-        .click(loginButton)
-        .click(addButton)
-        // .getAlertText((results) => {
-        //     console.log("get alert")
-        // })
-        // .setAlertText("bob")
-        .windowHandles((result) => {
-            let handle = result.value[0]
-            console.log(handle)
-            browser.switchToWindow(handle)
-            .source((result) => {
-                console.log(result.value)
-            })
-        })
-        // .source((result) => {
-        //     console.log(result.value)
-        // })
-        .pause(15000)
-        .keys(browser.Keys.ENTER)
-        
-
-    }
-    // "5. Sign up a new user with username: newUser and password: 123456": browser => {
-        
-    //     const usernameInputSelector = 'input[name="username"]';
-    //     const passwordInputSelector = 'input[name="password"]';
-    //     const signUpButton = '.btn-primary[name="Sign Up"]';
-        
-    //     browser.url("http://localhost:8080/register")
-    //     .setValue(usernameInputSelector, "newUser")
-    //     .pause(1000)
-    //     .setValue(passwordInputSelector, "123456")
-    //     .pause(1000)
-    //     .click(signUpButton)
-    //     .waitForElementVisible(".alert")
-    //     .assert.containsText(".alert", "Authentication Failed!")
-    // },
-    // "6. Create new unique project and check if its displayed": browser => {
+    // "4. Login with valid credentials, then create a duplicate project": browser => {
     //     const usernameInputSelector = 'input[name="username"]';
     //     const passwordInputSelector = 'input[name="password"]';
     //     const loginButton = '.btn-primary[name="Login"]';
     //     const addButton = '.operate';
-    //     const timeStamp = Math.floor(Date.now() / 60000)
+        
 
     //     browser.url("http://localhost:8080")
     //     .setValue(usernameInputSelector, "test")
@@ -106,11 +67,61 @@ module.exports = {
     //     .pause(1000)
     //     .click(loginButton)
     //     .click(addButton)
-    //     .setAlertText(timeStamp.toString())
-    //     .keys(browser.Keys.ENTER)
-    //     .url(response => {
-    //         browser.assert.equal(response.statusCode, 200)
-    //     }
-    //     )
-    // }
+    //     .pause(3000)
+    //     .setAlertText("project1")
+    //     .acceptAlert()
+    //     .pause(5000)
+    //     .assert.elementsCount(projectSelector())
+        
+        
+
+    // },
+    // "5. Sign up a new user with username: newUser and password: 123456": browser => {
+        
+    //     const usernameInputSelector = 'input[name="username"]';
+    //     const passwordInputSelector = 'input[name="password"]';
+    //     const signUpButton = '.btn-primary';
+    //     const username = "newUser" + (Math.floor(Date.now()/60000)).toString()
+        
+    //     browser.url("http://localhost:8080/register")
+    //     .setValue(usernameInputSelector, username)
+    //     .pause(1000)
+    //     .setValue(passwordInputSelector, "123456")
+    //     .pause(1000)
+    //     .waitForElementVisible(signUpButton)
+    //     .click(signUpButton)
+    //     .pause(3000)
+    //     .waitForElementVisible(".alert")
+    //     .assert.containsText(".alert", "User registered successfully!")
+    // },
+    "6. Create new unique project and check if its displayed": browser => {
+        const usernameInputSelector = 'input[name="username"]';
+        const passwordInputSelector = 'input[name="password"]';
+        const loginButton = '.btn-primary[name="Login"]';
+        const addButton = '.operate';
+        const landingDiv = '#landing'
+        const timeStamp = Math.floor(Date.now() / 1000)
+        let projectName = "project" + timeStamp.toString()
+        //const projectButton = 'h3[name="' + projectName + '"]'
+
+        let originalNumChildren 
+        
+        let newNumChildren
+        browser.url("http://localhost:8080")
+        .setValue(usernameInputSelector, "test")
+        .pause(1000)
+        .setValue(passwordInputSelector, "123456")
+        .pause(1000)
+        .click(loginButton)
+        .assert.elementsCount(projectSelector(projectName), 0)
+        .click(addButton)
+        .pause(3000)
+        .setAlertText(projectName)
+        .acceptAlert()
+        .pause(3000)
+        .acceptAlert()
+        .waitForElementVisible(landingDiv)
+        .assert.elementPresent(landingDiv)
+        .assert.elementsCount(projectSelector(projectName), 1)
+    }
 }
