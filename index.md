@@ -103,6 +103,8 @@ The assumed skill-level of VisiCode users is inherently low. Users are expected 
 
 ### Sequence Diagram
 
+![Sequence Diagram](report_images/sequence.jpg)
+
 ### Component Diagram
 
 ## Testing
@@ -116,12 +118,12 @@ We apply a systematic functional-testing approach in the black-box component of 
    - Actual Result - passed as expected
 
 2. Login with valid username but wrong password 
-  - Expected Result - authentication error message
-  - Actual Result - Passed as expected
+    - Expected Result - authentication error message
+    - Actual Result - Passed as expected
 
 3. Go to Homepage url without logging in
-  - Expected Result - HTTP 401 error
-  - Actual Result - Passed as expected
+    - Expected Result - HTTP 401 error
+    - Actual Result - Passed as expected
 
 4. Login with valid credentials, then create duplicate project
    - Expected Result - project is added of the specified name
@@ -141,192 +143,192 @@ We use Mockito and JUnit testing frameworks for the white-box component of our t
 
 #### Project Controller
 
-- myProjectsUnauthorized
-  - Action/Input - Attempt to authorize project that current user has no access to
-  - Expected Result - Access denied, bad request
-  - Actual Result - Pass as expected
+1. myProjectsUnauthorized
+     - Action/Input - Attempt to authorize project that current user has no access to
+     - Expected Result - Access denied, bad request
+     - Actual Result - Pass as expected
 
-- myProjectsEmpty
-  - Action/Input - Attempt to access projects page when no projects exists
-  - Expected Result - No projects exist when page loads
-  - Actual Result - Pass as expected
+2. myProjectsEmpty
+     - Action/Input - Attempt to access projects page when no projects exists
+     - Expected Result - No projects exist when page loads
+     - Actual Result - Pass as expected
 
-- myProjectsMany
-  - Action/Input - Attempt to access projects page when three projects exist
-  - Expected Result - Three projects are displayed when page loads
-  - Actual Result - Pass as expected
+3. myProjectsMany
+     - Action/Input - Attempt to access projects page when three projects exist
+     - Expected Result - Three projects are displayed when page loads
+     - Actual Result - Pass as expected
 
-- createProject
-  - Action/Input - Execute code for creating new project with arbitrary attributes
-  - Expected Result - Project is created and stored successfully with specified attributes
-  - Actual Result - Pass as expected
+4. createProject
+     - Action/Input - Execute code for creating new project with arbitrary attributes
+     - Expected Result - Project is created and stored successfully with specified attributes
+     - Actual Result - Pass as expected
 
-- createProjectDuplicateName
-  - Action/Input - Execute code for creating new project where project name is specifed as pre-existing project name
-  - Expected Result - Project creation fails with bad request
-  - Actual Result - Pass as expected
+5. createProjectDuplicateName
+     - Action/Input - Execute code for creating new project where project name is specifed as pre-existing project name
+     - Expected Result - Project creation fails with bad request
+     - Actual Result - Pass as expected
 
-- createProjectTooMany
-  - Action/Input - Execute code for creating new project when maximum number of projects has already been reached
-  - Expected Result - Project creation fails with bad request
-  - Actual Result - Pass as expected
+6. createProjectTooMany
+     - Action/Input - Execute code for creating new project when maximum number of projects has already been reached
+     - Expected Result - Project creation fails with bad request
+     - Actual Result - Pass as expected
 
-- removeProjectNonExistentInUser
-  - Action/Input - Attempt to remove project from a user that does not exist in database
-  - Expected Result - Removal fails with bad request
-  - Actual Result - Pass as expected
+7. removeProjectNonExistentInUser
+     - Action/Input - Attempt to remove project from a user that does not exist in database
+     - Expected Result - Removal fails with bad request
+     - Actual Result - Pass as expected
 
-- removeProjectUnauthorized
-  - Action/Input - Execute code for project removal from unauthorized user
-  - Expected Result - Removal fails with bad request
-  - Actual Result - Pass as expected
+8. removeProjectUnauthorized
+     - Action/Input - Execute code for project removal from unauthorized user
+     - Expected Result - Removal fails with bad request
+     - Actual Result - Pass as expected
 
-- removeProjectValid
-  - Action/Input - Execute code for project removal from authorized user
-  - Expected Result - Removal succeeds
-  - Actual Result - Pass as expected
+9. removeProjectValid
+     - Action/Input - Execute code for project removal from authorized user
+     - Expected Result - Removal succeeds
+     - Actual Result - Pass as expected
 
-- viewOwnProjectUnauthorized
-  - Action/Input - Execute code to view project from unauthorized user
-  - Expected Result - Project is not displayed with bad request
-  - Actual Result - Pass as expected
+10. viewOwnProjectUnauthorized
+     - Action/Input - Execute code to view project from unauthorized user
+     - Expected Result - Project is not displayed with bad request
+     - Actual Result - Pass as expected
 
-- viewOwnProjectNonExistent
-  - Action/Input - Execute code to view project using project name that does not exist
-  - Expected Result - No project is displayed with bad request
-  - Actual Result - Pass as expected
+11. viewOwnProjectNonExistent
+     - Action/Input - Execute code to view project using project name that does not exist
+     - Expected Result - No project is displayed with bad request
+     - Actual Result - Pass as expected
 
-- viewOwnProjectValid
-  - Action/Input - Execute code to view project from authorized user
-  - Expected Result - Project notes are displayed to user
-  - Actual - Pass as expected
+12. viewOwnProjectValid
+     - Action/Input - Execute code to view project from authorized user
+     - Expected Result - Project notes are displayed to user
+     - Actual - Pass as expected
 
-- viewOtherProject
-  - Action/Input - Execute code to view the project of another user after link has been shared
-  - Expected Result - Other project notes are displayed
-  - Actual - Pass as expected
+13. viewOtherProject
+     - Action/Input - Execute code to view the project of another user after link has been shared
+     - Expected Result - Other project notes are displayed
+     - Actual - Pass as expected
 
-- viewOtherProjectWithEditPermissions
-  - Action/Input - Execute code for viewing other project and making arbitray sample edits
-  - Expected Result - Project is displayed with edits shown
-  - Actual - pass as expected
+14. viewOtherProjectWithEditPermissions
+     - Action/Input - Execute code for viewing other project and making arbitray sample edits
+     - Expected Result - Project is displayed with edits shown
+     - Actual - pass as expected
 
-- viewOtherProjectNonExistent
-  - Action/Input - Execute code for viewing the project of another user with project name that does not exist
-  - Expected Result - No project is displayed with bad result
-  - Actual - Pass as expected
+15. viewOtherProjectNonExistent
+     - Action/Input - Execute code for viewing the project of another user with project name that does not exist
+     - Expected Result - No project is displayed with bad result
+     - Actual - Pass as expected
 
-- addTextNoteLarge
-  - Action/Input - Execute code for adding large text note that does not exceed maximum note size
-  - Expected Result - Note is added and displayed successfully
-  - Actual - Pass as expected
+16. addTextNoteLarge
+     - Action/Input - Execute code for adding large text note that does not exceed maximum note size
+     - Expected Result - Note is added and displayed successfully
+     - Actual - Pass as expected
 
-- addTextNoteOversized
-  - Action/Input - Execute code for adding text note of size greater than maximum length allowed
-  - Expected Result - Note addition fails with bad request
-  - Actual - Pass as expected
+17. addTextNoteOversized
+     - Action/Input - Execute code for adding text note of size greater than maximum length allowed
+     - Expected Result - Note addition fails with bad request
+     - Actual - Pass as expected
 
-- addTextNoteNoPermission
-  - Action/Input - Execute code for adding text note without proper permissions
-  - Expected Result - Note addition fails with bad request
-  - Actual - Pass as expected
+18. addTextNoteNoPermission
+     - Action/Input - Execute code for adding text note without proper permissions
+     - Expected Result - Note addition fails with bad request
+     - Actual - Pass as expected
 
-- addTextNoteViewer
-  - Action/Input - Execute code for adding note from user with only viewing permissions
-  - Expected Result - Note addition fails with bad request
-  - Actual - Pass as expected
+19. addTextNoteViewer
+     - Action/Input - Execute code for adding note from user with only viewing permissions
+     - Expected Result - Note addition fails with bad request
+     - Actual - Pass as expected
 
-- addTextNoteEditor
-  - Action/Input - Execute code for adding text note from user with editing permisions
-  - Expected Result - Note addition succeeds and is displayed in project
-  - Actual - Pass as expected
+20. addTextNoteEditor
+     - Action/Input - Execute code for adding text note from user with editing permisions
+     - Expected Result - Note addition succeeds and is displayed in project
+     - Actual - Pass as expected
 
-- addNoteTooMany
-  - Action/Input - Execute code for adding note to project that already contains maximum number of notes
-  - Expected Result - Note addition fails with bad request
-  - Actual - Pass as expected
+21. addNoteTooMany
+     - Action/Input - Execute code for adding note to project that already contains maximum number of notes
+     - Expected Result - Note addition fails with bad request
+     - Actual - Pass as expected
 
-- addFileNoteLarge
-  - Action/Input - Execute code for adding a file note of size near but not exceeding maximum
-  - Expected Result - Note addition succeeds and is displayed in project
-  - Actual - Pass as expected
+22. addFileNoteLarge
+     - Action/Input - Execute code for adding a file note of size near but not exceeding maximum
+     - Expected Result - Note addition succeeds and is displayed in project
+     - Actual - Pass as expected
 
-- addFileNoteOversized
-  - Action/Input - Execute code for adding a file note of size exceeding maximum
-  - Expected Result - Note addition fails with bad request
-  - Actual - Pass as expected
+23. addFileNoteOversized
+     - Action/Input - Execute code for adding a file note of size exceeding maximum
+     - Expected Result - Note addition fails with bad request
+     - Actual - Pass as expected
 
-- addFileNoteNoPermission
-  - Action/Input - Execute code for adding a file note from user with no permissions
-  - Expected Result - Note addition fails with bad request
-  - Actual - Pass as expected
+24. addFileNoteNoPermission
+     - Action/Input - Execute code for adding a file note from user with no permissions
+     - Expected Result - Note addition fails with bad request
+     - Actual - Pass as expected
 
-- addfileNoteViewer
-  - Action/Input - Execute code for adding a file note from user with only viewing permissions
-  - Expected Result - Note addition fails with bad request
-  - Actual - Pass as expected
+25. addfileNoteViewer
+     - Action/Input - Execute code for adding a file note from user with only viewing permissions
+     - Expected Result - Note addition fails with bad request
+     - Actual - Pass as expected
 
-- addfileNoteEditor
-  - Action/Input - Execute code for adding a file note from user with editing permissions
-  - Expected Result - Note addition succeeds
-  - Actual - Pass as expected
+26. addfileNoteEditor
+     - Action/Input - Execute code for adding a file note from user with editing permissions
+     - Expected Result - Note addition succeeds
+     - Actual - Pass as expected
 
-- removeNoteNoPermission
-  - Action/Input - Execute code for removing a note from user with no permissions
-  - Expected Result - Note removal fails with bad request
-  - Actual - Pass as expected
+27. removeNoteNoPermission
+     - Action/Input - Execute code for removing a note from user with no permissions
+     - Expected Result - Note removal fails with bad request
+     - Actual - Pass as expected
 
-- removeNoteViewer
-  - Action/Input - Execute code for removing a note from user with only viewing permissions
-  - Expected Result - Note removal fails with bad request
-  - Actual - Pass as expected
+28. removeNoteViewer
+     - Action/Input - Execute code for removing a note from user with only viewing permissions
+     - Expected Result - Note removal fails with bad request
+     - Actual - Pass as expected
 
-- removeNoteNotInProject
-  - Action/Input - Execute code for removing a note that does not exist within project
-  - Expected Result - Note removal fails with bad request
-  - Actual - Pass as expected
+29. removeNoteNotInProject
+     - Action/Input - Execute code for removing a note that does not exist within project
+     - Expected Result - Note removal fails with bad request
+     - Actual - Pass as expected
 
-- removeNoteValid
-  - Action/Input - Execute code for removing a note from user with editing permissions
-  - Expected Result - Note removal succeeds
-  - Actual - Pass as expected
+30. removeNoteValid
+     - Action/Input - Execute code for removing a note from user with editing permissions
+     - Expected Result - Note removal succeeds
+     - Actual - Pass as expected
 
-- viewNoteNoPermission
-  - Action/Input - Execute code for displaying a note to user with no permissions
-  - Expected Result - Note is not displayed with bad request
-  - Actual - Pass as expected
+31. viewNoteNoPermission
+     - Action/Input - Execute code for displaying a note to user with no permissions
+     - Expected Result - Note is not displayed with bad request
+     - Actual - Pass as expected
 
-- viewNoteViewer
-  - Action/Input - Execute code for displaying a note to user with viewing permissions
-  - Expected Result - Note is displayed
-  - Actual - Pass as expected
+32. viewNoteViewer
+     - Action/Input - Execute code for displaying a note to user with viewing permissions
+     - Expected Result - Note is displayed
+     - Actual - Pass as expected
 
-- viewNoteEditor
-  - Action/Input - Exectue code for displaying a note to user with editing permissions
-  - Expected Result - Note is displayed
-  - Actual - Pass as expected
+33. viewNoteEditor
+     - Action/Input - Exectue code for displaying a note to user with editing permissions
+     - Expected Result - Note is displayed
+     - Actual - Pass as expected
 
 #### User Controller
 
-- userCreatePass
-  - Action/Input - Execute code for new user creation with correctly formatted username and password
-  - Expected Result - User is created and added to datastore
-  - Actual - Pass as expected
+1. userCreatePass
+     - Action/Input - Execute code for new user creation with correctly formatted username and password
+     - Expected Result - User is created and added to datastore
+     - Actual - Pass as expected
 
-- userCreateFail
-  - Action/Input - Execute code for new user creation with incorrectly formatted username and password
-  - Expected Result - User creation fails and is not added to database
-  - Actual - Pass as expected
+2. userCreateFail
+     - Action/Input - Execute code for new user creation with incorrectly formatted username and password
+     - Expected Result - User creation fails and is not added to database
+     - Actual - Pass as expected
 
-- userLoginPass
-  - Action/Input - Execute code for user login with valid credentials
-  - Expected Result - Login successful
-  - Actual - Pass as expected
+3. userLoginPass
+     - Action/Input - Execute code for user login with valid credentials
+     - Expected Result - Login successful
+     - Actual - Pass as expected
 
-- userLoginFail
-  - Action/Input - Execute code for user login with invalid credentials
-  - Expected Result - Login fails
-  - Actual - Pass as expected
+4. userLoginFail
+     - Action/Input - Execute code for user login with invalid credentials
+     - Expected Result - Login fails
+     - Actual - Pass as expected
 
 #### Test Coverage
 
@@ -334,4 +336,20 @@ We use Mockito and JUnit testing frameworks for the white-box component of our t
 
 ## User Interface
 
-## References
+Our user interface is designed to be concise and easy to use. Example UI screenshots are below. From them it is easy to see icons and links to perfom such actions as creating and deleteing projects and notes, generating viewing/editing links, and navigating between pages.
+
+### Website Project Selection Screen
+
+![Web Proj Select](report_images/projectselect.png)
+
+### Website Note Editing Screen
+
+![Web Note Edit](report_images/notes.png)
+
+### VSCode Extension Image Note
+
+![VSC Img Note](report_images/extensionimagenote.png)
+
+### VSCode Extension Markdown Note
+
+![VSC MD Note](report_images/extensionMDnote.png)
