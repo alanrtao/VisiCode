@@ -1,24 +1,30 @@
 # VisiCode Project Report
 
 ## Introduction 
-Jupyter notebook is an immensely useful technology for all sorts of python projects, from advanced machine learning projects to students learning the language for the first time. In a teaching scenario, the functionality of Jupyter notebook even allows instructors to include graphs, figures, instructions, and more in projects assigned to students. However, not all programming courses are taught in python. It would be nice if this functionality and ease of use could be brought to other programming courses. Therefore, we propose VisiCode, a Visual Studio Code extension and web application that brings the visual strengths of Jupyter to other language courses, without relying on the notebook itself. VisiCode will allow instructors to embed images and formulas within code. Additionally, these persistent notes will always be recoverable in a given project without the need for version control. This will be especially useful for introductory programming courses where the students may not have any prerequisite knowledge of VCS like Github. VisiCode will bridge the gap between students and instructors by prioritizing a clear and concise design, low technical skill barrier to entry, and no restrictions on programming language used in a given course. This project is intended for small-scale personal/educational use and will not require much scalability.
+Jupyter notebook is an immensely useful technology for all sorts of python projects, from advanced machine learning projects to students learning the language for the first time. In a teaching scenario, the functionality of Jupyter notebook even allows instructors to include graphs, figures, instructions, and more in projects assigned to students. However, not all programming courses are taught in python. It would be nice if this functionality and ease of use could be brought to other programming courses. Therefore, we propose VisiCode, a Visual Studio Code extension and web application that brings the visual strengths of Jupyter to other language courses, without forcing beginner students to install different kernels for CS courses not taught in Python. VisiCode will allow instructors to embed images and formulas within code. Additionally, these persistent notes will always be recoverable in a given project without the need for version control. This will be especially useful for introductory programming courses where the students may not have any prerequisite knowledge of VCS like Github. VisiCode will bridge the gap between students and instructors by prioritizing a clear and concise design, low technical skill barrier to entry, and no restrictions on programming language used in a given course. This project is intended for small-scale personal/educational use and will not require much scalability.
 
 ## Motivation
-Jupyter notebook, and similar notebook document editors that currently exist on the market caters to a more advanced audience that than of VisiCode. This concept is further discussed in the Literature Review, but VisiCode fits into a niche that is currently uncaptured: small scale, introductory learners. This could be anything from self taught programmers to university students in low-level courses, such as CS1331 here at Georgia Tech. VisiCode brings a unique mix of ease-of-use, collaboration, and efficiency to enhance the workflow of both students and instructors.
+Jupyter notebook, and similar notebook document editors that currently exist on the market cater to a more advanced audience that than of VisiCode. This concept is further discussed in the Literature Review, but VisiCode fits into a niche that is currently uncaptured: small scale, introductory learners. This could be anything from self taught programmers to university students in low-level courses, such as CS1331 here at Georgia Tech. VisiCode brings a unique mix of ease-of-use, collaboration, and efficiency to enhance the workflow of both students and instructors.
 
 ## Project Scope
 
-VisiCode is accesible as both a VSCode extension and a web application hosted through the Google Cloud Platform (GCP). It provides the functionality of user creation/login, creation/editing/deletion of notebook documents, and creation/editing/deletion of notes within a notebook document. These notes may be in the form of computer code, plain text, images, graphs, figures, etc. User credentials and projects are stored using Google Datastore.
+VisiCode is accesible as both a VSCode extension and a web application hosted through the Google Cloud Platform (GCP). It provides the functionality of user creation/login, creation//deletion of projects, and creation/deletion of notes within a notebook document. These notes may be in the form of computer code, plain text, images, graphs, figures, etc. User credentials and projects are stored using Google Datastore.
 
 ## Project Management
 
 VisiCode development is broken down between team members in the following roles:
 
 - Project Manager - Alan Tao
-- Backend Lead - Hanzhang Liu
+   - Backend and backend testing
+   - Github repository and GCP management
+- Extension Lead - Hanzhang Liu
+   - VSCode extension design and development
 - Frontend Lead -Yunhao Hu
+   - Frontend design and development
 - Testing Lead - Dom Fernando
+   - Frontent automated testing
 - Report/Presentation Lead - Garrett Cooley
+    - Create presentation materials and project report
 
 
 Additionally, project tasks and bugs are tracked using the Trello project tracking tool. This allows team members to update each other on task/bug progress, completion, and creation in real time. We also use Discord for instant communcation in a group setting and virtual meetings.
@@ -95,7 +101,11 @@ The assumed skill-level of VisiCode users is inherently low. Users are expected 
 
 ## Design
 
+Below are several diagrams that depict how the VisiCode system functions overall, and how various components of that system interact and depend on one another. This system design has resulted in a functional web application and VSCode extension.
+
 ### Architectural (High-Level) Design
+
+![High Level Design](report_images/arch.jpg)
 
 ### Class Diagram
 
@@ -106,6 +116,8 @@ The assumed skill-level of VisiCode users is inherently low. Users are expected 
 ![Sequence Diagram](report_images/sequence.jpg)
 
 ### Component Diagram
+
+![Component Diagram](report_images/component.jpg)
 
 ## Testing
 
