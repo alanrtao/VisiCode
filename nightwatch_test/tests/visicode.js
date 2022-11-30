@@ -1,11 +1,7 @@
 // VisiCode e2e (blackbox) testing suite
 function projectSelector(name) {
-    console.log({
-        selector : `//h3[text()='${name}']`,
-        locateStrategy: 'xpath'
-      })
     return {
-        selector : `//h3[text()='${name}']`,
+        selector: `.//h3[.="${name}"]`,
         locateStrategy: 'xpath'
       }
 }
@@ -104,16 +100,13 @@ module.exports = {
         let projectName = "project" + timeStamp.toString()
         //const projectButton = 'h3[name="' + projectName + '"]'
 
-        let originalNumChildren 
-        
-        let newNumChildren
         browser.url("http://localhost:8080")
         .setValue(usernameInputSelector, "test")
         .pause(1000)
         .setValue(passwordInputSelector, "123456")
         .pause(1000)
         .click(loginButton)
-        .assert.elementsCount(projectSelector(projectName), 0)
+        browser
         .click(addButton)
         .pause(3000)
         .setAlertText(projectName)
