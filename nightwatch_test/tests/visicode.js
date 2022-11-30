@@ -106,7 +106,7 @@ module.exports = {
         .setValue(passwordInputSelector, "123456")
         .pause(1000)
         .click(loginButton)
-        browser
+        .assert.not.elementPresent(projectSelector(projectName))
         .click(addButton)
         .pause(3000)
         .setAlertText(projectName)
