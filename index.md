@@ -49,7 +49,9 @@ We have set up Maven for dependency management, along with SpringBoot framework 
 
 We use a Trello board for tracking project schedule, assigning team members to tasks, meeting deadlines, and fixing bugs. We use our Discord for general communication and team updates. We have also created a github repository for VisiCode and will use git for version control. Additionally, we use a combination of whitebox and blackbox testing using frameworks like JUnit, Mockito, and TSLgenerator. We also use NightwatchJS to tend frontend functionality.
 
-## Project Lifecycle
+## Project Lifecycle - The Waterfall Method
+
+![Waterfall Method](report_images/waterfall.PNG)
 
 We use the Waterfall life cycle model to structure our project such that we are completing a sequential series of tasks that build on one another. This model is a good fit for VisiCode, as the requirments and technolgies to be used were clearly defined early on. Other benefits the waterfall model are:
 
@@ -113,7 +115,7 @@ Below are several diagrams that depict how the VisiCode system functions overall
 
 ### Sequence Diagram
 
-![Sequence Diagram](report_images/sequence.jpg)
+![Sequence Diagram](report_images/sequence_fixed.jpg)
 
 ### Component Diagram
 
